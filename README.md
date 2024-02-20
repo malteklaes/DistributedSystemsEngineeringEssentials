@@ -1,5 +1,4 @@
-# Basic Remoting Patterns  (as project from a university course (task 4))
-## Task
+# Distributed Systems Engineering (essentials)
 
 
 This project covers essential distributed systems engineering topics such as concurrency, 
