@@ -1,0 +1,26 @@
+# Remote Object Asynchrony  (as project from a university course (task 5))
+## Task
+
+
+In distributed systems servers frequently require a significant amount of time to react on client inquiries. This leads to an unsatisfactory user experience (as the client freezes from the user’s point of view while waiting for a server response) and also wastes the computational power of the clients (instead of waiting they could prepare additional inquiries). Thus, instead of synchronous blocking network invocations (where the client needs to "actively" wait after sending a request) asynchronous invocations should be preferred. This is also reflected by communications frameworks which support such asynchronous invocations out of the box (see, for example, Spring’s WebClient if you are interested in a widely used implementation).
+
+In the following we will tackle the four most common used techniques to implement such asynchronous invocations, namely: Fire and Forget, Sync with Server, Polling, and Result Callback. For this we will apply the following project description and use-cases:
+
+You are responsible to implement a simple central logging service (check out, for example, Logstash or logfaces if you are interested in real world implementations). The logging service should not only provide the option to store log messages but also to search and manage them. To simulate the database, storage, and management operations that take place in more complex central log services store the log messages in a simply array which is explicitly (i.e., the logic to increase the array size is implemented by you) extended by your implementation if necessary. Overall, there are four use-cases which must be covered in a single coherent solution:
+
+First Use-Case: Send (from the client) a simple single log message to the server. The server should store this simple log message. 
+
+Second Use-Case: Sooner or later the server will run out of space. If this happens the server will fail to store additional logs. Hence, it’s important that the client must be able to order the removal of old logs. Permit the client to specify the number of log entries which should be removed. 
+
+Third Use-Case: The client should be able to send log messages in bulk. For this the client will need to compress the data before sending it (which can take some time given that the number of logs can be large) while the server needs to reserve additional space (which can take some time as well) before it can receive the log messages. Try to implement these operations in a way that make use of asynchronous invocations patterns to reduce the overall completion time for the "send in bulk" operation.
+
+If you are up to the challenge you can implement the compression based on the GZIP algorithm which is part of the Java framework. Alternatively, you can send the logs unaltered and add a small delay using (the normally to be avoided) Thread.sleep function to simulate the effort it takes to compress the logs. The chosen approach does not affect the desired learning targets. 
+
+Fourth Use-Case: The client should be able to search for specific log entries based on a search term. This is typically done in an interactive way, allowing a user to define a search term and displaying results as soon as they are available to create the impression of a responsive user interaction (compare, e.g., with real world search solutions known to you). 
+Implement these uses cases by tackling the following tasks: 
+
+We recommend to implement the different use-cases one by one in the given order. Hereby, the complexity should slowly rise as existing data structures, etc. can be reused/extended along the way. Further, it could be interesting to check out the marshalling capabilities which are provided by Java out of the box when tackling this programming task (as a starting point one could search for Java Object Serialization). We provide some example code and data structures to speed up the development. 
+
+1) Analyse each use-case and study the four asynchronous invocation patterns. Create a one-to-one mapping between use-cases and asynchronous invocation patterns – while doing so take the unique properties of the patterns and use-cases in mind to create an optimal match. Each pattern must be applied once. Ensure that you are capable of arguing why a specific pattern was chosen for a specific use-case based on their unique advantages, disadvantages, and requirements. 
+
+2) Implement the use-cases (including the asynchronous invocation patterns). For this apply the broker pattern as a foundation for your implementation along with plain TCP/UDP sockets as the communication technology. For Polling and Result Callback additional types must be added to achieve a nice separated object-oriented design - check out the lecture materials for hints on this aspect. Take the unique differences between TCP and UDP into account. You will likely find that, by design, each protocol’s properties make it an especially well fit for a different selection of the asynchronous invocation patterns. Again, ensure that you are able to argue why you chose a specific protocol for a specific pattern.
