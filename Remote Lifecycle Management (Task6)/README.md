@@ -19,6 +19,8 @@ Malte Klaes
 01650623
 December 2023
 
+## Hint
+unzip folders "build" and "lib"
 
 ## Task
 Implement a simple Cipher service for e.g. a secure chat software. Use the Java javax.crypto.cipher library, which is described in Java API and a tutorial
